@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import useReduxStore from '../../hooks/useReduxStore';
+import AddItem from '../AddItem/AddItem';
 
 function ShelfPage() {
 	const store = useReduxStore();
@@ -14,6 +15,7 @@ function ShelfPage() {
 	return (
 		<div className='container'>
 			{JSON.stringify({ store })}
+			<AddItem />
 			<h2>Shelf</h2>
 			<p>All of the available items can be seen here.</p>
 			<table>
@@ -21,14 +23,14 @@ function ShelfPage() {
 					<th> Description</th>
 					<th>Image</th>
 				</tr>
-				{/* {store.map((item, index) => {
+				{store.itemReducer.map((item, index) => {
 					return (
 						<tr key={index}>
 							<td>{item.description}</td>
-							<td>{item.image_url}</td>
+							<td><img src={item.image_url} /></td>
 						</tr>
 					);
-				})} */}
+				})}
 			</table>
 		</div>
 	);

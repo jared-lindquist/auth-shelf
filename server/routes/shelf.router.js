@@ -6,14 +6,39 @@ const router = express.Router();
  * Get all of the items on the shelf
  */
 router.get('/', (req, res) => {
-  res.sendStatus(200); // For testing only, can be removed
+  const queryText = 'SELECT * FROM "item";';
+
+  pool.query(queryText).then((results) => {
+    // console.log('query GET results from DB:', results)
+    res.send(results.rows);
+  }).catch((err) => {
+    console.log('error getting from DB', err);
+    res.sendStatus(500);
+  })
 });
+
+
 
 /**
  * Add an item for the logged in user to the shelf
  */
 router.post('/', (req, res) => {
-  // endpoint functionality
+  console.log('req.user: ', req.user);
+  const queryText = `
+  INSERT INTO "item" ("description", "image_url", "user_id")
+  VALUES ($1, $2, $3);
+  `;
+
+
+  pool.query(queryText, [req.body.itemName, req.body.itemUrl, req.user.id])
+    .then(()=> {
+      res.sendStatus(201);
+    }).catch((err) => {
+      console.log('error POSTing, ', err);
+      res.sendStatus(500);
+    });
+
+
 });
 
 /**
