@@ -21,9 +21,28 @@ function* addItem(action) {
 	}
 }
 
+function* deleteItem(action) {
+	console.log(action.payload);
+	try {
+		console.log('in deleteItem');
+		yield axios.delete('/api/shelf/' + action.payload.id);
+		
+		/*
+		yield axios({
+			type: 'DELETE',
+			url: '/api/shelf/' + action.payload.id,
+		});
+		*/
+		yield put({type: 'FETCH_ITEMS'});
+	} catch(err){
+		console.log('error deleting', err);
+	}
+}
+
 function* itemSaga(action) {
 	yield takeLatest('FETCH_ITEMS', fetchItems);
 	yield takeLatest('ADD_ITEM', addItem);
+	yield takeLatest('DELETE_ITEM', deleteItem);
 }
 
 export default itemSaga;
