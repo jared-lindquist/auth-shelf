@@ -11,10 +11,11 @@ function ShelfPage() {
 	useEffect(() => {
 		dispatch({ type: 'FETCH_ITEMS' });
 	}, []);
+	
 	//TODO Update the (store.map) to match the reducer that will be created later on.
 	return (
 		<div className='container'>
-			{JSON.stringify({ store })}
+			{/*{JSON.stringify({ store })} */}
 			<AddItem />
 			<h2>Shelf</h2>
 			<p>All of the available items can be seen here.</p>
@@ -28,6 +29,7 @@ function ShelfPage() {
 						<tr key={index}>
 							<td>{item.description}</td>
 							<td><img src={item.image_url} /></td>
+							<td><button onClick={() => dispatch({type: 'DELETE_ITEM', payload: item})}>Delete Me</button></td>
 						</tr>
 					);
 				})}

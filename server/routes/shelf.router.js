@@ -1,4 +1,7 @@
 const express = require('express');
+const {
+  rejectUnauthenticated,
+} = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
@@ -31,7 +34,7 @@ router.post('/', (req, res) => {
 
 
   pool.query(queryText, [req.body.itemName, req.body.itemUrl, req.user.id])
-    .then(()=> {
+    .then(() => {
       res.sendStatus(201);
     }).catch((err) => {
       console.log('error POSTing, ', err);
@@ -45,6 +48,11 @@ router.post('/', (req, res) => {
  * Delete an item if it's something the logged in user added
  */
 router.delete('/:id', (req, res) => {
+
+    console.log('in router delete');
+    pool.query(`DELETE FROM "item" WHERE "id" = $1 AND "user_id" = $2`, [req.params.id, req.user.id])
+      .then((results) => res.sendStatus(200))
+      .catch((error) => res.sendStatus(500));
   // endpoint functionality
 });
 
