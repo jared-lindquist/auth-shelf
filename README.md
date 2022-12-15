@@ -7,7 +7,7 @@ What is on the Prime Digital Academy: Room 2 Shelf? Let's find out!
 ## Prerequisites
     * Node.js
     * Postico
-    * PostrgeSQL
+    * PostgreSQL
     * Nodemon
 
 ## Installation
@@ -42,7 +42,7 @@ What is on the Prime Digital Academy: Room 2 Shelf? Let's find out!
 
     * Node.js
     * Postico
-    * PostrgeSQL
+    * PostgreSQL
     * Nodemon
 
 
