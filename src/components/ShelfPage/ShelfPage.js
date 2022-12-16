@@ -9,7 +9,7 @@ import EditItem from '../EditItem/EditItem';
 function ShelfPage() {
 
 	// let editState = false;
-	const [editState, setEditState] = useState(false);
+	// const [editState, setEditState] = useState(false);
 	const store = useReduxStore();
 	const dispatch = useDispatch();
 
@@ -19,13 +19,12 @@ function ShelfPage() {
 	}, []);
 
 
-	const handleEdit = (item) => {
-		setEditState(true);
+	const handleEdit =  (item) => {
 		
-		console.log('in handleEdit', item, editState);
-
-		dispatch({type: 'EDIT_ITEM', payload: item})
-
+		console.log('in handleEdit', item);
+		dispatch({type: 'SET_EDIT_STATE', payload: true})
+		dispatch({type: 'EDIT_ITEM_FIELD', payload: item})
+		
 	}
 
 	
@@ -33,7 +32,7 @@ function ShelfPage() {
 	return (
 		<div className='container'>
 			{/*{JSON.stringify({ store })} */}
-			{editState ? <EditItem /> : <AddItem />}
+			{store.ItemState ? <EditItem /> : <AddItem />}
 			<h2>Shelf</h2>
 			<p>All of the available items can be seen here.</p>
 			<table>

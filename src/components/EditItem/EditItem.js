@@ -10,17 +10,21 @@ const EditItem = () => {
 
     const [itemName, setItemName] = useState(store.EditItemReducer.description);
     const [itemUrl, setItemUrl] = useState(store.EditItemReducer.image_url);
+    const [itemId, setItemId] = useState(store.EditItemReducer.id);
+    const [editState, setEditState] = useState(false);
 
     const itemDetails = {
         itemName: itemName,
         itemUrl: itemUrl,
+        id: itemId
     }
 
     const handleClick = () => {
         dispatch({ type: 'EDIT_ITEM', payload: itemDetails })
         setItemName('');
         setItemUrl('');
-        
+        dispatch({type: 'SET_EDIT_STATE', payload: false})
+
     }
 
     return (
