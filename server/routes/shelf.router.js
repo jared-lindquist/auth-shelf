@@ -61,7 +61,17 @@ router.delete('/:id', (req, res) => {
  */
 router.put('/:id', (req, res) => {
   // endpoint functionality
+  console.log('in shelf.router PUT', req.body);
+  let queryParams = [req.body.itemName, req.body.itemUrl, req.params.id];
+  let queryText = `UPDATE "item" 
+                   SET "description" = $1, "image_url"= $2
+                   WHERE "id" = $3;`;
+    pool.query(queryText, queryParams)
+    .then((results) => res.sendStatus(200))
+    .catch((error) => res.sendStatus(500));
 });
+
+
 
 /**
  * Return all users along with the total number of items

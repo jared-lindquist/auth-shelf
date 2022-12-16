@@ -39,10 +39,22 @@ function* deleteItem(action) {
 	}
 }
 
+function* editItem(action) {
+console.log('in item.saga editItem', action.payload);
+try {
+	yield axios.put('/api/shelf/' + action.payload.id, action.payload);
+	yield put({type: 'FETCH_ITEMS'});
+}
+catch (error) {
+	console.log('error in item.saga editItem', error);
+}
+}
+
 function* itemSaga(action) {
 	yield takeLatest('FETCH_ITEMS', fetchItems);
 	yield takeLatest('ADD_ITEM', addItem);
 	yield takeLatest('DELETE_ITEM', deleteItem);
+	yield takeLatest('EDIT_ITEM', editItem);
 }
 
 export default itemSaga;
